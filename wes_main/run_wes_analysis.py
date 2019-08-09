@@ -1,20 +1,20 @@
 import os
 import argparse
 import logging as log
-
-log.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
-log.warning('This will get logged to a file')
+from datetime import date
 
 parser = argparse.ArgumentParser(description='Whole exome data analysis pipeline to generate variant annotation results from various starting '
                                      'datatype inputs: fastq|sam|bam|vcf')
-
+parser.add_argument("--project", dest='project_name', required=True, help='give name to this project.')
 parser.add_argument("--wd", dest='working_directory', required=True, help='path to working directory')
 parser.add_argument("--dt", dest="input_datatype", required=True, help='type of input data, values fastq, sam, bam, vcf')
 
 args = parser.parse_args()
 work_dir = args.working_directory
 data_type = args.input_datatype
+project = args.project_name
 
+log.basicConfig(filename='{}-{}-{}.log'.format(project, data_type, str(date.today())), filemode='a', format='%(name)s - %(levelname)s - %(message)s')
 
 import os
 root_dir = 'C:/Users/sid/Desktop/test'
@@ -57,9 +57,13 @@ def haplotype_caller(reference, subdir, dbSNP, ):
 
 
 def main():
-    if __name__== '__main__':
-        print("Starting analysis")
-        main()
+    print("hello")
+if __name__ == '__main__':
+
+    log.warning('This will get logged to a file')
+    print("Starting analysis")
+    main()
+
 
 
 
